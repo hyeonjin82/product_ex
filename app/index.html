@@ -5,44 +5,61 @@
     <title> Jin product manager</title>
 
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="asset/app.css" />
 
 </head>
 <body ng-controller="ProductListCtrl as vm">
-    <table>
-        <thead>
-            <tr>
-                <td><button type="button"
-                            ng-click="vm.toggleImage()">
-                    {{vm.showImage ? "Hide": "Show"}} Image
-                    </button>
-                </td>
-                <td>Product</td>
-                <td>Code</td>
-                <td>Available</td>
-                <td>Price</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="product in vm.products">
-                <td>
-                    <img ng-if="vm.showImage"
-                         ng-src="{{product.imageUrl}}"
-                         style="width:50px; margin:2px"
-                         title="{{product.productName}}">
-                </td>
-                <td>{{product.productName}}</td>
-                <td>{{product.productCode}}</td>
-                <td>{{product.releaseDate}}</td>
-                <td>{{product.price | currency }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="font-size:large">
+            Product List
+        </div>
 
-    <!-- script -->
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td><button type="button"
+                                    class="btn btn-primary"
+                                    ng-click="vm.toggleImage()">
+                            {{vm.showImage ? "Hide": "Show"}} Image
+                            </button>
+                        </td>
+                        <td>Product</td>
+                        <td>Code</td>
+                        <td>Available</td>
+                        <td>Price</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="product in vm.products">
+                        <td>
+                            <img ng-if="vm.showImage"
+                                 ng-src="{{product.imageUrl}}"
+                                 style="width:50px; margin:2px"
+                                 title="{{product.productName}}">
+                        </td>
+                        <td>{{product.productName}}</td>
+                        <td>{{product.productCode}}</td>
+                        <td>{{product.releaseDate}}</td>
+                        <td>{{product.price | currency }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Library Script -->
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
 
-
+    <!-- Application Script -->
     <script src="app.js"></script>
+
+    <!--Service-->
+    <script src="common/common.service.js"></script>
+    <script src="common/productResource.js"></script>
+
+    <!--Product Controllers-->
     <script src="products/productsListCtrl.js"></script>
 </body>
 </html>
