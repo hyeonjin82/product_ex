@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="productManagement">
 <head lang="en">
     <meta charset="UTF-8">
     <title> Jin product manager</title>
 
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
 
 </head>
-<body ng-ap="productManagement">
-    <table ng-controller="ProductListCtrl as vm">
+<body ng-controller="ProductListCtrl as vm">
+    <table>
         <thead>
             <tr>
-                <td>Image</td>
+                <td><button type="button"
+                            ng-click="vm.toggleImage()">
+                    {{vm.showImage ? "Hide": "Show"}} Image
+                    </button>
+                </td>
                 <td>Product</td>
                 <td>Code</td>
                 <td>Available</td>
@@ -20,7 +25,8 @@
         <tbody>
             <tr ng-repeat="product in vm.products">
                 <td>
-                    <img ng-src="{{product.imageUrl}}"
+                    <img ng-if="vm.showImage"
+                         ng-src="{{product.imageUrl}}"
                          style="width:50px; margin:2px"
                          title="{{product.productName}}">
                 </td>
@@ -34,6 +40,7 @@
 
     <!-- script -->
     <script src="bower_components/angular/angular.js"></script>
+
 
     <script src="app.js"></script>
     <script src="products/productsListCtrl.js"></script>
