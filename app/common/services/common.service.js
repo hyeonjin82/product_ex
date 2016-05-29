@@ -1,7 +1,9 @@
 (function () {
     "use strict"
-
-    angular.module("common.services",
-        [ngResource]);
     
+    angular.module("common.services",
+        ["ngResource"]);
+    
+    
+
 }());
