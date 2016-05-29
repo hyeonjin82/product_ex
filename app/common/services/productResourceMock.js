@@ -1,8 +1,12 @@
+/**
+ * Created by Deb on 8/21/2014.
+ */
 (function () {
-    "use strict"
+    "use strict";
 
-    var app = angular.module("productResourceMock",
-                            ["ngMockE2E"]);
+    var app = angular
+        .module("productResourceMock",
+            ["ngMockE2E"]);
 
     app.run(function ($httpBackend) {
         var products = [
@@ -68,26 +72,26 @@
             }
         ];
 
-        var productUrl = "/api/products";
+        var productUrl = "/api/products"
 
         $httpBackend.whenGET(productUrl).respond(products);
 
-        var editingRegex = new RegExp(productUrl+"/[0-9][0-9]*",'');
-        $httpBackend.whenGET(editingRegex).respond(function (method, url, data){
+        var editingRegex = new RegExp(productUrl + "/[0-9][0-9]*", '');
+        $httpBackend.whenGET(editingRegex).respond(function (method, url, data) {
             var product = {"productId": 0};
             var parameters = url.split('/');
             var length = parameters.length;
             var id = parameters[length - 1];
 
             if (id > 0) {
-                for(var i=0;i<products.length; i++) {
+                for (var i = 0; i < products.length; i++) {
                     if (products[i].productId == id) {
                         product = products[i];
                         break;
                     }
-                }
+                };
             }
-            return [200, product, {}]
+            return [200, product, {}];
         });
 
         $httpBackend.whenPOST(productUrl).respond(function (method, url, data) {
@@ -97,20 +101,24 @@
                 // new product Id
                 product.productId = products[products.length - 1].productId + 1;
                 products.push(product);
-            } else {
-                //Updated product
-                for (var i = 0 ; i < products.length; i++ ) {
+            }
+            else {
+                // Updated product
+                for (var i = 0; i < products.length; i++) {
                     if (products[i].productId == product.productId) {
                         products[i] = product;
                         break;
                     }
                 };
             }
-            return [200, product, {}]
+            return [200, product, {}];
         });
 
         // Pass through any requests for application files
-        $httpBackend.whenGET(/app/).passThrough();
-    });
+        $httpBackend.whenGET(/\.html$/).passThrough();
 
+
+
+
+    })
 }());
