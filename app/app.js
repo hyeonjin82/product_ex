@@ -8,6 +8,8 @@
             "ui.router",
             "ui.mask",
             "ui.bootstrap",
+            "ngAnimate",
+            "toastr",
             "productResourceMock"]);
 
     app.config(["$stateProvider",

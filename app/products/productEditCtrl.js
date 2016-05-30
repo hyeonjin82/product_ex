@@ -2,9 +2,9 @@
     "use strict"
 
     angular.module("productManagement")
-        .controller("ProductEditCtrl",["product", "$state", ProductEditCtrl]);
+        .controller("ProductEditCtrl",["product", "$state", "toastr", ProductEditCtrl]);
 
-    function ProductEditCtrl(product, $state) {
+    function ProductEditCtrl(product, $state, toastr) {
         var vm = this;
 
         vm.product = product;
@@ -24,6 +24,7 @@
 
         vm.submit = function () {
             vm.product.$save();
+            // toastr.success("Success","Save Successfully!");
         }
 
         vm.cancel = function(){
