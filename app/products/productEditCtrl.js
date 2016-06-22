@@ -2,12 +2,31 @@
     "use strict"
 
     angular.module("productManagement")
-        .controller("ProductEditCtrl",["product", "$state", "toastr", ProductEditCtrl]);
+        .controller("ProductEditCtrl",["product", "$state", "toastr", "productService", ProductEditCtrl]);
 
-    function ProductEditCtrl(product, $state, toastr) {
+    function ProductEditCtrl(product, $state, toastr, productService) {
         var vm = this;
 
         vm.product = product;
+        vm.priceOption="percent";
+
+        vm.jindate = new Date(1982, 7, 12);
+
+        vm.marginPercent = function () {
+            return productService.calculateMarginPercent(vm.product.price, vm.product.cost)
+        };
+
+        vm.calculatePrice = function() {
+            var price = 0;
+            if(vm.priceOption == 'amount') {
+                price = productService.calculateFromAmount( vm.product.cost, vm.markupAmount)
+            }
+            if(vm.priceOption == 'percent') {
+                price = productService.calculateFromPercent( vm.product.cost, vm.markupPercent)
+            }
+
+            vm.product.price = price;
+        };
 
         if (vm.product && vm.product.productId) {
             vm.title = "Edit: " + vm.product.productName;
